@@ -36,7 +36,7 @@
   width: 220px;
   margin: 10px;
   border: 1px solid;
-  height: 250px;
+  max-height: 250px;
 }
 
 .description {

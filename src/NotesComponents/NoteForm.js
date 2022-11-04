@@ -1,46 +1,56 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styles from '../Styles/formStyle.module.css';
-import { useState } from 'react';
-import '../Styles/formStyle.module.css'
-import {RiCloseCircleLine} from 'react-icons/ri'
+import '../Styles/formStyle.module.css';
+import { Form, Button, Alert } from "react-bootstrap";
 
 function NoteForm(props) {
-  const [note, setNote] = useState({
-    title: "",
-    description: ""
-  })
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false)
+  const titleRef = useRef();
+  const descriptionRef = useRef();
+  // const closeForm = () => { }
 
-  const closeForm = () => {
-  
-  }
-
-  const noteSave = (e) => {
+  const noteSave = async (e) => {
     e.preventDefault();
-    props.onSubmit({
+
+    if (titleRef.current.value === '') {
+      setError('Please enter a title')
+    }
+    try {
+      setError('');
+      setLoading(true);
+      await props.onSubmit({
       id: Math.floor(Math.random() * 10000),
-      title: note.title,
-      description: note.description
-    })
+      title: titleRef.current.value,
+      description: descriptionRef.current.value
+      })
+    } catch {
+      setError('Not able to place the note')
+    }
+    setLoading(false)
   }
   return (
-    <div className={styles.formContainer}>Add a note
-    <form>
-        <input 
-        className={styles.noteForm}
-        type="text"
-        placeholder="Note title"
-        onChange={e => {setNote({...note, title: e.target.value})}}/>
-        <textarea
-        className={styles.noteForm}
-        placeholder="Note's description"
-        onChange={e => {setNote({...note, description: e.target.value})}}>
-        </textarea>
-        <button
-        className={styles.success}
-        onClick={noteSave}>Add note
-        </button>
-        <RiCloseCircleLine onClick={() => closeForm()}/>
-    </form>
+    <div className={styles.formContainer}>
+      <Form onSubmit={noteSave}>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <Form.Group id="note-title">
+          <Form.Label>Title</Form.Label>
+          <Form.Control type="text"
+          ref={titleRef}
+          ></Form.Control>
+        </Form.Group>
+        <Form.Group id="password">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            type="text"
+            ref={descriptionRef}
+          ></Form.Control>
+        </Form.Group>
+        <br />
+        <Button disabled={loading} className="w-100" type="submit">
+          Add note
+        </Button>
+      </Form>
     </div>
   )
 }
