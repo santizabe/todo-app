@@ -1,0 +1,50 @@
+.dashboard {
+  display: inline-block;
+  margin-top: 0px;
+  width: 150px;
+  text-decoration: underline;
+  background-color: white;
+}
+
+.columnContainer {
+  display: flex;
+  max-width: 300px;
+}
+
+.notesContainer {
+  background-color: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.notesContainer:first-child {
+  margin-left: 20px;
+}
+
+.notesContainer:last-child {
+  margin-right: 20px;
+}
+
+.note {
+  box-shadow: 10px 10px 5px black;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background-color: #cc9900;
+  width: 220px;
+  margin: 10px;
+  border: 1px solid;
+  height: 250px;
+}
+
+.description {
+  font-size: 1.1rem;
+  font-weight: 200;
+  color: white;
+  margin: 5px;
+  border-top: 2px black solid;
+  padding: 1px;
+  justify-content: center;
+}
