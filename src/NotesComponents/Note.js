@@ -6,13 +6,18 @@ import styles from '../Styles/notesStyles.module.css'
 function Note({notes, removeNote, setEdit}) {
   return notes.map((note, index) => (<>
     <div className={styles.note} key={index}>
-      {note.title}
-      <div className='icons'>
-          <RiCloseCircleLine onClick={() => removeNote(note.id)}
-            className='remove-icon'/>
-          <TiEdit
-            onClick={() => setEdit({id: note.id, title: note.title, description: note.description})}
-            className='edit-icon'/>
+      <div className='d-flex justify-content-between  '>
+        <div className='title'>
+        {note.title}
+        </div>
+        <div className='icons'>
+            <RiCloseCircleLine
+              onClick={() => removeNote(note.id)}
+              className='remove-icon'/>
+            <TiEdit
+              onClick={() => setEdit({id: note.id, title: note.title, description: note.description})}
+              className='edit-icon'/>
+        </div>
       </div>
       <div
         className={styles.description}>

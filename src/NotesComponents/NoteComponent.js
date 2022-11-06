@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+// import { Button } from 'react-bootstrap'
 import NoteForm from './NoteForm'
 import Note from './Note'
 
@@ -19,7 +19,7 @@ function NoteComponent(props) {
     setNotes(newNotes);
   }
   
-  return (<>  
+  return (<>
     <NoteForm onSubmit={getNoteInfo} />
     <Note notes={notes}
     removeNote={removeNote}/>
