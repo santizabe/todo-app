@@ -16,7 +16,6 @@
   display: flex;
   flex-wrap: wrap;
   flex-basis: auto;
-  flex-direction: column;
   justify-content: flex-start;
 }
 
