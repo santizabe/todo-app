@@ -1,20 +1,30 @@
-import React from "react";
-import NotesContainer from "../NotesComponents/NotesContainer";
+import React, {useState} from "react";
 import NoteStatus from "../NotesComponents/NoteStatus";
-import { useAuth } from "../contexts/AuthContext";
-import { Navigate } from "react-router-dom";
+import NoteForm from '../NotesComponents/NoteForm'
 
 function Dashboard() {
-  const { currentUser } = useAuth();
 
-  if (!currentUser) {
-    return <Navigate to="/login" />;
+  const [notes, setNotes] = useState([]);
+
+  const removeNote = id => {
+    const removeArr = [...notes].filter(note => note.id !== id)
+
+    setNotes(removeArr)
+  }
+  
+  const getNoteInfo = note => {
+    if (!note) {return}
+    const newNotes = [...notes, note]
+    setNotes(newNotes);
   }
 
   return (
     <>
-      <NotesContainer />
-      <NoteStatus />
+      <NoteForm onSubmit={getNoteInfo} />
+      <NoteStatus
+        notes={notes}
+        removeNote={removeNote}
+      />
     </>
   );
 }
