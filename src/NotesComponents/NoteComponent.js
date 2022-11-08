@@ -1,35 +1,40 @@
-import React from 'react';
-import {RiCloseCircleLine} from 'react-icons/ri'
-import {TiEdit} from 'react-icons/ti'
-import styles from '../Styles/notesStyles.module.css'
+import React from "react";
+import { RiCloseCircleLine } from "react-icons/ri";
+import { TiEdit } from "react-icons/ti";
+import styles from "../Styles/notesStyles.module.css";
 
-function NoteComponent({note, removeNote, setEdit, dragStart}) {
+function NoteComponent({ note, removeNote, setEdit, dragStart }) {
   return (
-  <>
-    <div className={styles.note}
-    draggable
-    onDragStart={(e) => dragStart(e, note.id)}
-    key={note.id}>
-      <div className='d-flex justify-content-between'>
-        <div className='title'>
-        {note.title}
-        </div>
-        <div className='icons'>
+    <>
+      <div
+        className={styles.note}
+        draggable
+        onDragStart={(e) => dragStart(e, note.id)}
+        key={note.id}
+      >
+        <div className="d-flex justify-content-between">
+          <div className="title">{note.title}</div>
+          <div className="icons">
             <RiCloseCircleLine
               onClick={() => removeNote(note.id)}
-              className='remove-icon'/>
+              className="remove-icon"
+            />
             <TiEdit
-              onClick={() => setEdit({id: note.id, title: note.title, description: note.description})}
-              className='edit-icon'/>
+              onClick={() =>
+                setEdit({
+                  id: note.id,
+                  title: note.title,
+                  description: note.description,
+                })
+              }
+              className="edit-icon"
+            />
+          </div>
         </div>
+        <div className={styles.description}>{note.description}</div>
       </div>
-      <div
-        className={styles.description}>
-        {note.description}
-      </div>
-    </div>
-  </>
-  )
+    </>
+  );
 }
 
-export default NoteComponent
+export default NoteComponent;
