@@ -9,7 +9,7 @@ function NoteComponent({ note, removeNote, setEdit, dragStart }) {
       <div
         className={styles.note}
         draggable
-        onDragStart={(e) => dragStart(e, note.id)}
+        onDragStart={(e) => dragStart(e, JSON.stringify(note))}
         key={note.id}
       >
         <div className="d-flex justify-content-between">

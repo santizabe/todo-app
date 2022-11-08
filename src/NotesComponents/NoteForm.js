@@ -22,7 +22,8 @@ function NoteForm(props) {
       await props.onSubmit({
       id: Math.floor(Math.random() * 10000),
       title: titleRef.current.value,
-      description: descriptionRef.current.value
+      description: descriptionRef.current.value,
+      status: "pending"
       })
     } catch {
       setError('Not able to place the note')

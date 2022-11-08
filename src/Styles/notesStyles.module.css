@@ -38,6 +38,18 @@
   max-height: 250px;
 }
 
+.note:hover {
+  cursor: grab;
+}
+
+.note:active {
+  cursor: grabbing;
+}
+
+.icons:hover {
+  cursor: default;
+}
+
 .description {
   font-size: 1.1rem;
   font-weight: 200;
