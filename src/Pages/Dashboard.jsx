@@ -1,30 +1,35 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import NoteStatus from "../NotesComponents/NoteStatus";
-import NoteForm from '../NotesComponents/NoteForm'
+import NoteForm from "../NotesComponents/NoteForm";
+import { useAuth } from "../contexts/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function Dashboard() {
-
+  const { currentUser } = useAuth();
   const [notes, setNotes] = useState([]);
 
-  const removeNote = id => {
-    const removeArr = [...notes].filter(note => note.id !== id)
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
 
-    setNotes(removeArr)
-  }
-  
-  const getNoteInfo = note => {
-    if (!note) {return}
-    const newNotes = [...notes, note]
+  const removeNote = (id) => {
+    const removeArr = [...notes].filter((note) => note.id !== id);
+
+    setNotes(removeArr);
+  };
+
+  const getNoteInfo = (note) => {
+    if (!note) {
+      return;
+    }
+    const newNotes = [...notes, note];
     setNotes(newNotes);
-  }
+  };
 
   return (
     <>
       <NoteForm onSubmit={getNoteInfo} />
-      <NoteStatus
-        notes={notes}
-        removeNote={removeNote}
-      />
+      <NoteStatus notes={notes} removeNote={removeNote} />
     </>
   );
 }
