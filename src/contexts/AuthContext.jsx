@@ -19,7 +19,11 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    return auth.signOut()
+    return auth.signOut();
+  }
+
+  function resetPassword(email) {
+    return auth.sendPasswordResetEmail(email);
   }
 
   useEffect(() => {
@@ -35,7 +39,8 @@ export function AuthProvider({ children }) {
     currentUser,
     login,
     signup,
-    logout
+    logout,
+    resetPassword,
   };
   return (
     <AuthContext.Provider value={value}>
