@@ -1,28 +1,33 @@
-import React, { useState } from 'react'
-// import { Button } from 'react-bootstrap'
-import NoteForm from './NoteForm'
-import Note from './Note'
+import React from 'react';
+import {RiCloseCircleLine} from 'react-icons/ri'
+import {TiEdit} from 'react-icons/ti'
+import styles from '../Styles/notesStyles.module.css'
 
-function NoteComponent(props) {
-
-  const [notes, setNotes] = useState([]);
-
-  const removeNote = id => {
-    const removeArr = [...notes].filter(note => note.id !== id)
-
-    setNotes(removeArr)
-  }
-  
-  const getNoteInfo = note => {
-    if (!note) {return}
-    const newNotes = [note, ...notes]
-    setNotes(newNotes);
-  }
-  
-  return (<>
-    <NoteForm onSubmit={getNoteInfo} />
-    <Note notes={notes}
-    removeNote={removeNote}/>
+function NoteComponent({note, removeNote, setEdit, dragStart}) {
+  return (
+  <>
+    <div className={styles.note}
+    draggable
+    onDragStart={(e) => dragStart(e, note.id)}
+    key={note.id}>
+      <div className='d-flex justify-content-between'>
+        <div className='title'>
+        {note.title}
+        </div>
+        <div className='icons'>
+            <RiCloseCircleLine
+              onClick={() => removeNote(note.id)}
+              className='remove-icon'/>
+            <TiEdit
+              onClick={() => setEdit({id: note.id, title: note.title, description: note.description})}
+              className='edit-icon'/>
+        </div>
+      </div>
+      <div
+        className={styles.description}>
+        {note.description}
+      </div>
+    </div>
   </>
   )
 }
