@@ -20,12 +20,13 @@ function NoteComponent({ note, removeNote, setEdit, dragStart }) {
               className="remove-icon"
             />
             <TiEdit
-              onClick={() =>
+              onClick={() =>{
                 setEdit({
                   id: note.id,
                   title: note.title,
                   description: note.description,
-                })
+                  status: note.status
+                })}
               }
               className="edit-icon"
             />

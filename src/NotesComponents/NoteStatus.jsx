@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import styles from "../Styles/noteStatus.module.css";
 import Note from "./Note";
+import Modal from './Modal'
 
-function NoteStatus({ notes, removeNote }) {
+function NoteStatus({ notes, removeNote, setEdit }) {
   const pendingNotes = notes;
   const [inProcessNotes, setInProcessNotes] = useState([]);
   const [completedNotes, setCompletedNotes] = useState([]);
   const [dragging, setDragging] = useState(false)
+  const [noteToEdit, setNoteToEdit] = useState(null)
 
   const findNote = (note, status) => {
     const draggedNote = JSON.parse(note)
@@ -26,6 +28,29 @@ function NoteStatus({ notes, removeNote }) {
     }
     newNote.status = status;
     return newNote;
+  }
+
+  const getNoteToEdit = (note) => {
+    setNoteToEdit(note);
+  }
+
+  const editNote = (editedNote) => {
+    let noteIndex = 0
+    if (editedNote.status === 'pending'){
+      noteIndex = pendingNotes.indexOf(pendingNotes.find((note) => note.id === editedNote.id));
+      pendingNotes[noteIndex] = editedNote
+    }
+    else if (editedNote.status === 'process') {
+      noteIndex = inProcessNotes.indexOf(inProcessNotes.find((note) => note.id === editedNote.id))
+      inProcessNotes[noteIndex] = editedNote
+    }
+    else {
+      noteIndex = completedNotes.indexOf(completedNotes.find((note) => note.id === editedNote.id))
+      completedNotes[noteIndex] = editedNote
+    }
+    console.log(noteIndex);
+    console.log(editedNote);
+    setNoteToEdit(null)
   }
 
   const getInProcessNote = (pendingNote) => {
@@ -89,6 +114,7 @@ function NoteStatus({ notes, removeNote }) {
 
   return (
     <>
+      <Modal note={noteToEdit} edit={editNote}/>
       <div className={styles.container}>
         <div className={styles.table}>
           <div className={styles.titles}>
@@ -110,7 +136,9 @@ function NoteStatus({ notes, removeNote }) {
             >
               <Note classname={ dragging && styles.dragging }
               notes={notes}
-              removeNote={removeNote} />
+              removeNote={removeNote}
+              setEdit={getNoteToEdit}
+              />
             </div>
             <div
               className="w-100 process-note"
@@ -119,7 +147,8 @@ function NoteStatus({ notes, removeNote }) {
             >
               <Note notes={inProcessNotes} 
               classname={ dragging && styles.dragging }
-              removeNote={removeInProcessNote} />
+              removeNote={removeInProcessNote}
+              setEdit={getNoteToEdit} />
             </div>
             <div
               className="w-100 process-note"
@@ -128,7 +157,8 @@ function NoteStatus({ notes, removeNote }) {
             >
               <Note notes={completedNotes} 
               classname={ dragging && styles.dragging }
-              removeNote={removeCompletedNote} />
+              removeNote={removeCompletedNote}
+              setEdit={getNoteToEdit} />
             </div>
           </div>
         </div>

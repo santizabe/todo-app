@@ -1,7 +1,7 @@
 import React from "react";
 import NoteComponent from "./NoteComponent";
 
-function Note({ notes, removeNote }) {
+function Note({ notes, removeNote, setEdit }) {
   const dragStart = (e, id) => {
     e.dataTransfer.setData("noteId", id);
   };
@@ -10,6 +10,7 @@ function Note({ notes, removeNote }) {
       dragStart={dragStart}
       note={note}
       removeNote={removeNote}
+      setEdit={setEdit}
       key={note.id}
     />
   ));
