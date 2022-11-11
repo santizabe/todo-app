@@ -2,12 +2,15 @@ import React from "react";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { TiEdit } from "react-icons/ti";
 import styles from "../Styles/notesStyles.module.css";
+import '../Styles/notesStyles.module.css'
 
 function NoteComponent({ note, removeNote, setEdit, dragStart }) {
+  const color = note.color;
+
   return (
     <>
       <div
-        className={styles.note}
+        className={`${styles.note} ${color}`}
         draggable
         onDragStart={(e) => dragStart(e, JSON.stringify(note))}
         key={note.id}

@@ -7,7 +7,6 @@ function NoteStatus({ notes, removeNote, setEdit }) {
   const pendingNotes = notes;
   const [inProcessNotes, setInProcessNotes] = useState([]);
   const [completedNotes, setCompletedNotes] = useState([]);
-  const [dragging, setDragging] = useState(false)
   const [noteToEdit, setNoteToEdit] = useState(null)
 
   const findNote = (note, status) => {
@@ -48,8 +47,6 @@ function NoteStatus({ notes, removeNote, setEdit }) {
       noteIndex = completedNotes.indexOf(completedNotes.find((note) => note.id === editedNote.id))
       completedNotes[noteIndex] = editedNote
     }
-    console.log(noteIndex);
-    console.log(editedNote);
     setNoteToEdit(null)
   }
 
@@ -83,14 +80,12 @@ function NoteStatus({ notes, removeNote, setEdit }) {
 
   const dragInProcessOver = (e) => {
     e.preventDefault();
-    setDragging(true)
   };
 
   const droppedInProcessOver = (e) => {
     e.preventDefault();
     const newProcessNote = findNote(e.dataTransfer.getData('noteId'), 'process');
     getInProcessNote(newProcessNote);
-    setDragging(false)
   };
 
   const dragCompletedOver = (e) => {
@@ -130,33 +125,30 @@ function NoteStatus({ notes, removeNote, setEdit }) {
           </div>
           <div className={styles.titles}>
             <div
-              className="w-100 process-note"
+              className="w-100 d-flex flex-column align-items-center"
               onDrop={(e) => droppedItem(e)}
               onDragOver={(e) => dragOver(e)}
             >
-              <Note classname={ dragging && styles.dragging }
-              notes={notes}
+              <Note notes={notes}
               removeNote={removeNote}
               setEdit={getNoteToEdit}
               />
             </div>
             <div
-              className="w-100 process-note"
+              className="w-100 d-flex flex-column align-items-center"
               onDrop={(e) => droppedInProcessOver(e)}
               onDragOver={(e) => dragInProcessOver(e)}
             >
               <Note notes={inProcessNotes} 
-              classname={ dragging && styles.dragging }
               removeNote={removeInProcessNote}
               setEdit={getNoteToEdit} />
             </div>
             <div
-              className="w-100 process-note"
+              className="w-100 d-flex flex-column align-items-center"
               onDrop={(e) => droppedCompletedItem(e)}
               onDragOver={(e) => dragCompletedOver(e)}
             >
               <Note notes={completedNotes} 
-              classname={ dragging && styles.dragging }
               removeNote={removeCompletedNote}
               setEdit={getNoteToEdit} />
             </div>

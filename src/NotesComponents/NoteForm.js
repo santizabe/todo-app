@@ -5,10 +5,21 @@ import { Form, Button, Alert } from "react-bootstrap";
 
 function NoteForm(props) {
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0)
   const titleRef = useRef();
   const descriptionRef = useRef();
-  // const closeForm = () => { }
+
+  const colors = [
+    'yellow',
+    'green',
+    'purple',
+    'blue'
+  ]
+
+  if (count > 3) {
+    setCount(0)
+  } 
 
   const noteSave = async (e) => {
     e.preventDefault();
@@ -19,13 +30,16 @@ function NoteForm(props) {
     try {
       setError('');
       setLoading(true);
+      setCount(count+1)
       await props.onSubmit({
       id: Math.floor(Math.random() * 10000),
       title: titleRef.current.value,
       description: descriptionRef.current.value,
-      status: "pending"
+      status: "pending",
+      color: colors[count]
       })
-    } catch {
+    } catch(err) {
+      console.error(err)
       setError('Not able to place the note')
     }
     setLoading(false)
@@ -35,16 +49,18 @@ function NoteForm(props) {
       <Form onSubmit={noteSave}>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form.Group id="note-title">
-          <Form.Label>Title</Form.Label>
           <Form.Control type="text"
+          className='mt-3'
           ref={titleRef}
+          placeholder="Title"
           ></Form.Control>
         </Form.Group>
-        <Form.Group id="password">
-          <Form.Label>Description</Form.Label>
+        <Form.Group id="description">
           <Form.Control
+            className='mt-3'
             type="text"
             ref={descriptionRef}
+            placeholder="description"
           ></Form.Control>
         </Form.Group>
         <br />

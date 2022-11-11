@@ -1,5 +1,7 @@
 import React, {useRef} from 'react';
 import {Button, Card, Form} from 'react-bootstrap';
+import { RiCloseCircleLine } from "react-icons/ri";
+import { IconContext } from "react-icons";
 
 const MODAL_STYLES = {
     position: 'fixed',
@@ -11,6 +13,16 @@ const MODAL_STYLES = {
     zIndex: '1000'
 }
 
+const CLOSE = {
+    position: 'absolute',
+    top: '0',
+    right: '0'
+}
+
+const CANCEL = {
+    marginRight: '3rem'
+}
+
 const BACKGROUND_MODAL = {
     position: 'fixed',
     top: '0',
@@ -18,7 +30,7 @@ const BACKGROUND_MODAL = {
     left: '0',
     right: '0',
     backgroundColor: 'rgba(0, 0, 0, .7)',
-    zIndex: '1000'
+    zIndex: '999'
 }
 
 function Modal({note, edit}) {
@@ -31,30 +43,42 @@ function Modal({note, edit}) {
         return edit(newNote)
     }
 
+    const cancel = () => {
+        return edit(note)
+    }
+
     if (note === null) {return null};
   return (<>
     <div style={BACKGROUND_MODAL} />
     <div style={MODAL_STYLES}>
+        <IconContext.Provider value={{size: '2em' }}>
+            <RiCloseCircleLine style={CLOSE} onClick={cancel} />
+        </IconContext.Provider>
         <Card>
             <Card.Body>
                 <Form>
-                    <Form.Group id='title'>
+                    <Form.Group className="mb-1" id='title'>
                         <Form.Control
                         type='text'
                         ref={titleRef}
-                        placeholder={note.title}
+                        defaultValue={note.title}
                         >
                         </Form.Control>
                     </Form.Group>
-                    <Form.Group id='description'>
+                    <Form.Group className="mb-3" id='description'>
                         <Form.Control
                         type='textarea'
                         ref={descriptionRef}
-                        placeholder={note.description}
+                        defaultValue={note.description}
                         >
                         </Form.Control>
                     </Form.Group>
-                    <Button variant="dark" onClick={()=>editNote(note)}>Edit note</Button>
+                    <Button style={CANCEL}
+                    variant="light"
+                    onClick={cancel}>Cancel</Button>
+                    <Button className="ml-3"
+                    variant="success"
+                    onClick={()=>editNote(note)}>Edit note</Button>
                 </Form>
             </Card.Body>
         </Card>
