@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin-top: 2rem;
+  margin-left: 2rem;
+  height: 800px;
+  box-shadow: -10px 10px 5px black;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.table {
+  display: grid;
+  grid-template-rows: 10% 90%;
+  width: 100%;
+  height: inherit;
+}
+
+.titles {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  justify-items: center;
+}
+
+.dragging {
+  cursor: grabbing;
+}

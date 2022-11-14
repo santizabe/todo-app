@@ -1,0 +1,38 @@
+.background {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-image: url('../../../public/images/post-it-bg.png');
+    z-index: -2;
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20% 0 0 5%;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+}
+
+.loginBg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 80vh;
+    background-color: pink;
+    z-index: -1;
+}
+
+.login {
+    position: fixed;
+    top: 56px;
+    right: 0;
+    width: 80vh;
+}

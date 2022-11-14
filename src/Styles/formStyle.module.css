@@ -1,0 +1,40 @@
+.formContainer {
+    display:flex;
+    margin-left: 2rem;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(139, 126, 117);
+    max-width: 500px;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+.noteForm {
+    border-radius: 5px;
+    margin-top: 5px;
+    min-height: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+input::placeholder {
+    font-weight: 500;
+}
+
+textarea {
+    height: 50px;
+    max-width: 160px;
+    margin-bottom: 5px;
+}
+
+.success {
+    margin-left: 5px;
+    background-color: rgb(75, 157, 75);
+    color: white;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.close {
+    font-weight: bold;
+}
