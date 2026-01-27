@@ -1,70 +1,178 @@
-# Getting Started with Create React App
+# Todo App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, feature-rich todo application built with React and Firebase, allowing users to manage their tasks efficiently with secure authentication.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- 📝 **Create, Read, Update, Delete Notes** - Full CRUD functionality for managing your todos
+- 🔐 **User Authentication** - Secure login and sign-up with Firebase Authentication
+- 🔄 **Status Management** - Track note status and organization
+- 🎨 **Responsive UI** - Built with Bootstrap and React Bootstrap for a clean interface
+- 💾 **Cloud Storage** - Firebase backend for data persistence
+- 🛣️ **Multi-page Navigation** - Router-based navigation with React Router DOM
+- 🔑 **Password Recovery** - Recover account access with password recovery feature
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: React 18.3.1
+- **Build Tool**: Vite 6.3.6
+- **Routing**: React Router DOM 6.4.3
+- **UI Framework**: Bootstrap 5.2.2, React Bootstrap 2.5.0
+- **Backend**: Firebase 12.4.0
+- **Icons**: React Icons 4.6.0
+- **Styling**: CSS Modules & Custom CSS
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Structure
 
-### `npm test`
+```
+├── src/
+│   ├── App.jsx                    # Main app component with routing
+│   ├── index.jsx                  # Entry point
+│   ├── firebase.jsx               # Firebase configuration
+│   ├── Navbar.jsx                 # Navigation component
+│   ├── Styles.css                 # Global styles
+│   │
+│   ├── contexts/
+│   │   └── AuthContext.jsx        # Authentication context provider
+│   │
+│   ├── NotesComponents/           # Note management components
+│   │   ├── Modal.jsx              # Modal dialog for notes
+│   │   ├── Note.jsx               # Individual note component
+│   │   ├── NoteComponent.jsx      # Note display component
+│   │   ├── NoteForm.jsx           # Form for creating/editing notes
+│   │   ├── NotesContainer.jsx     # Container for all notes
+│   │   └── NoteStatus.jsx         # Status indicator component
+│   │
+│   ├── Pages/                     # Page components
+│   │   ├── Home.jsx               # Home page
+│   │   ├── Dashboard.jsx          # Main dashboard with notes
+│   │   ├── Login.jsx              # Login page
+│   │   ├── SignUp.jsx             # Sign-up page
+│   │   ├── PasswordRecovery.jsx   # Password recovery page
+│   │   └── Assets/
+│   │       └── Styles.css         # Page-specific styles
+│   │
+│   └── Styles/                    # CSS Modules
+│       ├── formStyle.module.css   # Form styling
+│       ├── notesStyles.module.css # Notes styling
+│       └── noteStatus.module.css  # Status styling
+│
+├── public/
+│   ├── manifest.json              # PWA manifest
+│   └── images/                    # Static images
+│
+├── index.html                     # HTML entry point
+├── package.json                   # Project dependencies
+├── vite.config.mjs                # Vite configuration
+└── README.md                      # This file
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (v14 or higher)
+- npm or yarn
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd todo-app
+```
 
-### `npm run eject`
+2. Install dependencies:
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Set up environment variables:
+   - Create a `.env.local` file in the root directory
+   - Add your Firebase configuration variables:
+```
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Running the App
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Development Server:**
+```bash
+npm start
+```
+The app will be available at `http://localhost:5173`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Production Build:**
+```bash
+npm run build
+```
 
-## Learn More
+**Preview Production Build:**
+```bash
+npm serve
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Routes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `/` - Home page
+- `/dashboard` - Main dashboard for managing notes
+- `/login` - User login
+- `/sign-up` - User registration
+- `/password-recovery` - Password recovery
+- `*` - Catch-all route redirecting to home
 
-### Code Splitting
+## Authentication Flow
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The app uses Firebase Authentication with Context API for state management:
+- Users can sign up with email and password
+- Login with existing credentials
+- Recover forgotten passwords
+- Authentication state is managed globally via `AuthContext`
 
-### Analyzing the Bundle Size
+## Components Overview
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Core Components
+- **Navbar**: Navigation bar with links and authentication status
+- **NotesContainer**: Main container displaying all user notes
+- **NoteForm**: Form for creating and editing notes
+- **Modal**: Dialog for note interactions
 
-### Making a Progressive Web App
+### Pages
+- **Home**: Landing page for new users
+- **Dashboard**: Main application hub where users manage their notes
+- **Login/SignUp**: Authentication pages
+- **PasswordRecovery**: Account recovery page
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Development
 
-### Advanced Configuration
+### Available Scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- `npm start` - Start development server
+- `npm run build` - Create production build
+- `npm run serve` - Preview production build
 
-### Deployment
+## Dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Core Dependencies
+- **react** - UI library
+- **react-dom** - React DOM rendering
+- **react-router-dom** - Client-side routing
+- **firebase** - Backend services and authentication
 
-### `npm run build` fails to minify
+### UI & Styling
+- **bootstrap** - CSS framework
+- **react-bootstrap** - Bootstrap components for React
+- **react-icons** - Icon library
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contributing
+
+Feel free to fork this project and submit pull requests for any improvements.
+
+## License
+
+This project is open source and available under the MIT License.

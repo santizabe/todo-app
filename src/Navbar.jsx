@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
+import { Button } from "react-bootstrap";
 import "./Styles.css";
 
 function Navbar() {
@@ -27,7 +28,7 @@ function Navbar() {
           </li>
           <li>{currentUser?.email}</li>
           <li>
-            <button onClick={handleLogout}>Logout</button>
+            <Button variant="danger" onClick={handleLogout}>Logout</Button>
           </li>
         </ul>
       ) : (

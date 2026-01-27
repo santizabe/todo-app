@@ -17,6 +17,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/password-recovery" element={<PasswordRecovery />} />
+        <Route path="*" element={<Home/>}/>
       </Routes>
     </AuthProvider>
   );

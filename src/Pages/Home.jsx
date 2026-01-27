@@ -9,9 +9,10 @@ function Home() {
   const { currentUser } = useAuth();
 
   if (currentUser) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/Dashboard" />;
   }
-  
+  window.history.pushState({}, null, "/");
+
   return (<>
     <div className="background"/>
     <div className="home">
