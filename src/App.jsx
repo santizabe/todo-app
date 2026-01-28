@@ -1,3 +1,4 @@
+import React from "react";
 import SignUp from "./Pages/SignUp";
 import Home from "./Pages/Home";
 import { AuthProvider } from "./contexts/AuthContext";

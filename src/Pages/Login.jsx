@@ -62,7 +62,7 @@ function Login() {
           </Card.Body>
         </Card>
         <div className="w-100 text-center mt-2">
-          Don't have an account?&nbsp;
+          Don&apos;t have an account?&nbsp;
           <Link to="/sign-up">Sign Up</Link>
         </div>
       </div>

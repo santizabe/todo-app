@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "../Styles/noteStatus.module.css";
+import PropTypes from "prop-types";
 import Note from "./Note";
 import Modal from "./Modal";
 
@@ -176,5 +177,18 @@ function NoteStatus({ notes, removeNote }) {
     </>
   );
 }
+
+NoteStatus.propTypes = {
+  notes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      status: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  removeNote: PropTypes.func.isRequired,
+};
 
 export default NoteStatus;

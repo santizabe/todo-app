@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import PropTypes from "prop-types";
 import { Button, Card, Form } from "react-bootstrap";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { IconContext } from "react-icons";
@@ -91,5 +92,13 @@ function Modal({ note, edit }) {
     </>
   );
 }
+
+Modal.propTypes = {
+  note: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
+  edit: PropTypes.func.isRequired,
+};
 
 export default Modal;

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styles from '../Styles/formStyle.module.css';
+import PropTypes from 'prop-types';
 import '../Styles/formStyle.module.css';
 import { Form, Button, Alert } from "react-bootstrap";
 
@@ -70,6 +71,10 @@ function NoteForm(props) {
       </Form>
     </div>
   )
+}
+
+NoteForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default NoteForm
