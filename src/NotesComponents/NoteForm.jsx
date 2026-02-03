@@ -2,12 +2,12 @@ import React, { useRef, useState } from 'react';
 import styles from '../Styles/formStyle.module.css';
 import PropTypes from 'prop-types';
 import '../Styles/formStyle.module.css';
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button, Alert, ToastContainer, Toast } from "react-bootstrap";
 
 function NoteForm(props) {
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [error, setError] = useState('');
   const titleRef = useRef();
   const descriptionRef = useRef();
 
@@ -24,31 +24,26 @@ function NoteForm(props) {
 
   const noteSave = async (e) => {
     e.preventDefault();
-
-    if (titleRef.current.value === '') {
-      setError('Please enter a title')
-    }
     try {
-      setError('');
       setLoading(true);
       setCount(count+1)
       await props.onSubmit({
       id: Math.floor(Math.random() * 10000),
       title: titleRef.current.value,
-      description: descriptionRef.current.value,
+      description: descriptionRef.current.value.replace(/\s+/g, ' ').trim(),
       status: "pending",
       color: colors[count]
       })
     } catch(err) {
-      console.error(err)
-      setError('Not able to place the note')
+      setError(err);
     }
-    setLoading(false)
+    titleRef.current.value = "";
+    descriptionRef.current.value = "";
+    setLoading(false);
   }
-  return (
+  return (<>
     <div className={styles.formContainer}>
       <Form onSubmit={noteSave}>
-        {error && <Alert variant="danger">{error}</Alert>}
         <Form.Group id="note-title">
           <Form.Control type="text"
           className='mt-3'
@@ -70,7 +65,19 @@ function NoteForm(props) {
         </Button>
       </Form>
     </div>
-  )
+    {error && <ToastContainer position='top-end'>
+      <Toast onClose={() => {setError('');}}
+      delay={3000}
+      autohide
+      bg='danger'
+      animation>
+        <Toast.Header>
+          <strong className="me-auto">Error!</strong>
+        </Toast.Header>
+        <Toast.Body>{error}</Toast.Body>
+      </Toast>
+      </ToastContainer>}
+  </>)
 }
 
 NoteForm.propTypes = {
