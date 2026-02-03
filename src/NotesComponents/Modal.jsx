@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Card, Form } from "react-bootstrap";
 import { RiCloseCircleLine } from "react-icons/ri";
@@ -37,14 +37,19 @@ const BACKGROUND_MODAL = {
 function Modal({ note, edit }) {
   const titleRef = useRef();
   const descriptionRef = useRef();
+  const [error, setError] = useState('');
 
   const editNote = (newNote) => {
-    newNote.title = titleRef.current.value;
-    newNote.description = descriptionRef.current.value;
+    if (!titleRef.current.value.trim())
+      return setError("Please insert a valid title!");
+    setError("");
+    newNote.title = titleRef.current.value.replace(/\s+/g, ' ').trim();
+    newNote.description = descriptionRef.current.value.replace(/\s+/g, ' ').trim();
     return edit(newNote);
   };
 
   const cancel = () => {
+    setError("");
     return edit(note);
   };
 
@@ -60,12 +65,17 @@ function Modal({ note, edit }) {
         </IconContext.Provider>
         <Card>
           <Card.Body>
+            {error && 
+            <>
+              <p className="danger">{error}</p>
+            </>}
             <Form>
               <Form.Group className="mb-1" id="title">
                 <Form.Control
                   type="text"
                   ref={titleRef}
                   defaultValue={note.title}
+                  placeholder="Title"
                 ></Form.Control>
               </Form.Group>
               <Form.Group className="mb-3" id="description">
@@ -73,6 +83,7 @@ function Modal({ note, edit }) {
                   type="textarea"
                   ref={descriptionRef}
                   defaultValue={note.description}
+                  placeholder="Description"
                 ></Form.Control>
               </Form.Group>
               <Button style={CANCEL} variant="light" onClick={cancel}>
