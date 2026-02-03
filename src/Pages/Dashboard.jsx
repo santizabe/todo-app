@@ -19,11 +19,18 @@ function Dashboard() {
   };
 
   const getNoteInfo = (note) => {
-    if (!note) {
-      return;
+    return new Promise((resolve, reject) => {
+    if (!note.title) {
+      return reject('Title is required');
     }
+    else if (!note.title.replace(/\s+/g, ' ').trim()) {
+      return reject("Invalid note title")
+    }
+    note.title = note.title.replace(/\s+/g, ' ').trim();
     const newNotes = [...notes, note];
     setNotes(newNotes);
+    return resolve();
+    });
   };
 
   return (
