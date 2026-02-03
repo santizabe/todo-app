@@ -26,7 +26,7 @@ function NoteForm(props) {
     e.preventDefault();
     try {
       setLoading(true);
-      setCount(count+1)
+      setCount(count+1);
       await props.onSubmit({
       id: Math.floor(Math.random() * 10000),
       title: titleRef.current.value,
